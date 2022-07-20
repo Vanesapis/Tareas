@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Tareas.Models.Producto>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<Tareas.Models.CategoriaProducto> categorias;
+
+    categorias = ViewBag.Categorias;
+}
+
+<h2>Lista de productos</h2>
+
+<div class="row">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Agregar
+    </button>
+
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Nombre Imagen</th>
+                <th colspan="2">Acciones</th>
+            </tr>
+            @foreach (var prod in Model)
+            {
+                <tr>
+                    <td>@prod.Id</td>
+                    <td>@prod.Nombre</td>
+                    <td>@prod.Precio</td>
+                    <td>@prod.Stock</td>
+                    <td>@prod.imagen</td>
+                    <td>@Html.ActionLink("Borrar", "Borrar/" + prod.Id, "Producto")</td>
+                    <td>@Html.ActionLink("Editar", "InfoEditar/" + prod.Id, "Producto")</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <form method="post" action="@Url.Action("Guardar", "Producto")" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Nuevo producto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="idProducto">ID Producto</label>
+                        <input type="number" name="idProducto" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" name="nombre" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción</label>
+                        <textarea name="descripcion" class="form-control"></textarea>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="precio">Precio</label>
+                        <input type="number" name="precio" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="stock">Stock</label>
+                        <input type="number" name="stock" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idCategoria">Categoría</label>
+                        <select class="form-control" name="idCategoria">
+                            @foreach (Tareas.Models.CategoriaProducto cat in categorias)
+                            {
+                                <option value="@cat.Id">@cat.Nombre</option>
+                            }
+
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="imagen">Imagen</label>
+                        <input type="file" name="imagen" class="form-control" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <input type="submit" class="btn btn-primary" value="Guardar" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

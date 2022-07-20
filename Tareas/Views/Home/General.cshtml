@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Tareas.Models.Producto>
+
+
+@{
+    ViewBag.Title = "General";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Tareas.Models.CategoriaProducto> categorias;
+
+
+
+    categorias = ViewBag.Categorias;
+}
+
+<h2>Resumen</h2>
+<div class="row">
+    <div class="col-lg-8">
+        <h4>Productos</h4>
+        @foreach (var item in Model)
+        {
+
+            <div class="col-sm-6">
+                <div class="card h-100">
+                    <a href="#"></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">@item.Nombre</a>
+                        </h4>
+                        <p class="card-text">
+                            @if (item.imagen != null)
+                            {
+                                <img src="~/Content/img/prod/@item.imagen" width="200" />
+                            }
+                            else
+                            {
+                                <img src="https://static.wikia.nocookie.net/memes-pedia/images/2/24/Mr_incre%C3%ADble_normal.png/revision/latest/scale-to-width-down/200?cb=20220128180912&path-prefix=es" width="200" />
+                            }
+                            <br />
+                            @item.Descripcion
+                            <br />
+                            Precio: $@item.Precio
+
+                        </p>
+                        <p>@Html.ActionLink("Ver más", "Detalle/" + item.Id, "Home")</p>
+                    </div>
+                </div>
+            </div>}
+
+    </div>
+    <div class="col-lg-4">
+        <h4>Categorias</h4>
+        @foreach (Tareas.Models.CategoriaProducto item in categorias)
+        {
+
+            <div class="col-sm-6">
+                <div class="card h-100">
+                    <a href="#"></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">@item.Nombre</a>
+                        </h4>
+                        <p class="card-text">
+                            @if (item.imagen != null)
+                            {
+                                <img src="~/Content/img/cat/@item.imagen" width="200" />
+                            }
+                            else
+                            {
+                                <img src="https://static.wikia.nocookie.net/memes-pedia/images/2/24/Mr_incre%C3%ADble_normal.png/revision/latest/scale-to-width-down/200?cb=20220128180912&path-prefix=es" width="200" />
+                            }
+
+                        </p>
+                    </div>
+                </div>
+            </div>}
+
+    </div>
+</div>
+
