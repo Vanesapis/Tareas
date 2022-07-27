@@ -27,6 +27,7 @@
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Stock</th>
+                <th>Categoria</th>
                 <th>Nombre Imagen</th>
                 <th colspan="2">Acciones</th>
             </tr>
@@ -37,6 +38,7 @@
                     <td>@prod.Nombre</td>
                     <td>@prod.Precio</td>
                     <td>@prod.Stock</td>
+                    <td>@prod.CategoriaProducto.Nombre</td>
                     <td>@prod.imagen</td>
                     <td>@Html.ActionLink("Borrar", "Borrar/" + prod.Id, "Producto")</td>
                     <td>@Html.ActionLink("Editar", "InfoEditar/" + prod.Id, "Producto")</td>
@@ -61,29 +63,29 @@
 
                     <div class="form-group">
                         <label for="idProducto">ID Producto</label>
-                        <input type="number" name="idProducto" class="form-control" />
+                        <input type="number" name="idProducto" class="form-control" required />
                     </div>
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
-                        <input type="text" name="nombre" class="form-control" />
+                        <input type="text" name="nombre" class="form-control"  required/>
                     </div>
                     <div class="form-group">
                         <label for="descripcion">Descripción</label>
-                        <textarea name="descripcion" class="form-control"></textarea>
+                        <textarea name="descripcion" class="form-control" required></textarea>
 
                     </div>
                     <div class="form-group">
                         <label for="precio">Precio</label>
-                        <input type="number" name="precio" class="form-control" />
+                        <input type="number" name="precio" class="form-control"  required/>
                     </div>
                     <div class="form-group">
                         <label for="stock">Stock</label>
-                        <input type="number" name="stock" class="form-control" />
+                        <input type="number" name="stock" class="form-control"  required/>
                     </div>
 
                     <div class="form-group">
                         <label for="idCategoria">Categoría</label>
-                        <select class="form-control" name="idCategoria">
+                        <select class="form-control" name="idCategoria"  required>
                             @foreach (Tareas.Models.CategoriaProducto cat in categorias)
                             {
                                 <option value="@cat.Id">@cat.Nombre</option>
@@ -94,7 +96,7 @@
                     </div>
                     <div class="form-group">
                         <label for="imagen">Imagen</label>
-                        <input type="file" name="imagen" class="form-control" />
+                        <input type="file" name="imagen" class="form-control"  required/>
                     </div>
 
                 </div>

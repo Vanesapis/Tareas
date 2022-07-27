@@ -30,7 +30,7 @@ namespace Tareas.Controllers
         public ActionResult Guardar(HttpPostedFileBase imagen)
         {
             string mensaje = "";
-            var id = Request["idProducto"];
+            var id = Request["idCategoria"];
             var nombre = Request["nombre"];
             string nombreImagen = "";
 
@@ -97,23 +97,30 @@ namespace Tareas.Controllers
         }
         public ActionResult Borrar(int id)
         {
+            var mensaje = "";
             if (Session["Usuario"] != null)
             {
-                var prod = (from p in contexto.CategoriaProductos where p.Id == id select p).FirstOrDefault();
+                var cat = (from p in contexto.CategoriaProductos where p.Id == id select p).FirstOrDefault();
 
-                string nombreImagen = prod.imagen;
+                string nombreImagen = cat.imagen;
 
-                contexto.CategoriaProductos.Remove(prod);
+                contexto.CategoriaProductos.Remove(cat);
 
-                contexto.SaveChanges();
-
-                string fullPath = Request.MapPath("~/Content/img/cat/" + nombreImagen);
-                if (System.IO.File.Exists(fullPath))
+                try
                 {
-                    System.IO.File.Delete(fullPath);
+                    contexto.SaveChanges();
+
+                    string fullPath = Request.MapPath("~/Content/img/cat/" + nombreImagen);
+                    if (System.IO.File.Exists(fullPath))
+                    {
+                        System.IO.File.Delete(fullPath);
+                    }
                 }
-
-
+                catch (Exception)
+                {
+                    mensaje = "Error al borrar el Categoria";
+                }
+                ViewBag.mensaje = mensaje;
                 return RedirectToAction("Index");
             }
             else

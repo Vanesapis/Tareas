@@ -51,5 +51,29 @@ namespace Tareas.Controllers
                 return RedirectToAction("Index");
             }
         }
+        public ActionResult SignUp()
+        {
+            var mensaje = "";
+            Usuario u = new Usuario();
+            u.nombre = Request["nombre"];
+            u.email = Request["email"];
+            u.pass = Request["password"];
+
+
+            try
+            {
+                contexto.Usuarios.Add(u);
+                contexto.SaveChanges();
+                mensaje = "Guardado con exito";
+            }
+            catch (Exception)
+            {
+                mensaje = "Error al guardar el dato";
+            }
+            ViewBag.mensaje = mensaje;
+
+            return RedirectToAction("Index");
+
+        }
     }
 }
